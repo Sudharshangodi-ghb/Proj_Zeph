@@ -7,7 +7,7 @@ REM choco -v
 REM choco install vscode
 python -m venv py_env
 
-call py_env\Scripts\active.bat
+call py_env\Scripts\activate.bat
 
 python.exe -m pip install --upgrade pip
 
