@@ -15,7 +15,7 @@ python.exe -m pip install --upgrade pip
 
 pip install -U west
 
-pip3 install -r https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/scripts/requirements.txt
+pip3 install -r https://github.com/zephyrproject-rtos/zephyr/blob/main/scripts/requirements.txt
 
 west init zephyrproject
 
