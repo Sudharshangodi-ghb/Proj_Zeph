@@ -1,0 +1,65 @@
+
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Zephyr: Configure (west → out-of-source build)",
+      "type": "shell",
+      "command": "west build -b nucleo_f446re -d \"C:/Work_Mirafra/Proj_Zeph/workspace/zph_ws/zpp_srg/build\" -S -- -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=\"C:/Work_Mirafra/Proj_Zeph/workspace/sdk/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe\" -DCMAKE_CXX_COMPILER=\"C:/Work_Mirafra/Proj_Zeph/workspace/sdk/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-g++.exe\" -DCMAKE_MAKE_PROGRAM=\"C:/ProgramData/chocolatey/bin/ninja.exe\" -DCMAKE_CMAKE_PATH=\"C:/ProgramData/chocolatey/bin/cmake.exe\"",
+      "options": {
+        "cwd": "C:/Work_Mirafra/Proj_Zeph/zephyrproject/zpp_srg/app",
+        "env": {
+          "ZEPHYR_TOOLCHAIN_VARIANT": "zephyr",
+          "ZEPHYR_SDK_INSTALL_DIR": "C:/Work_Mirafra/Proj_Zeph/workspace/sdk/zephyr-sdk-0.17.4"
+        }
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Zephyr: Build (west)",
+      "type": "shell",
+      "command": "west build -d \"C:/Work_Mirafra/Proj_Zeph/workspace/zph_ws/zpp_srg/build\"",
+      "options": {
+        "cwd": "C:/Work_Mirafra/Proj_Zeph/zephyrproject/zpp_srg/app",
+        "env": {
+          "ZEPHYR_TOOLCHAIN_VARIANT": "zephyr",
+          "ZEPHYR_SDK_INSTALL_DIR": "C:/Work_Mirafra/Proj_Zeph/workspace/sdk/zephyr-sdk-0.17.4"
+        }
+      },
+      "group": "build",
+      "dependsOn": ["Zephyr: Configure (west → out-of-source build)"],
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "Zephyr: Flash (west)",
+      "type": "shell",
+      "command": "west flash -d \"C:/Work_Mirafra/Proj_Zeph/workspace/zph_ws/zpp_srg/build\"",
+      "options": {
+        "cwd": "C:/Work_Mirafra/Proj_Zeph/zephyrproject/zpp_srg/app"
+      },
+      "dependsOn": ["Zephyr: Build (west)"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Zephyr: Erase (west)",
+      "type": "shell",
+      "command": "west flash --erase -d \"C:/Work_Mirafra/Proj_Zeph/workspace/zph_ws/zpp_srg/build\"",
+      "options": {
+        "cwd": "C:/Work_Mirafra/Proj_Zeph/zephyrproject/zpp_srg/app"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Zephyr: Debug server (west)",
+      "type": "shell",
+      "command": "west debug --no-build -d \"C:/Work_Mirafra/Proj_Zeph/workspace/zph_ws/zpp_srg/build\"",
+      "options": {
+        "cwd": "C:/Work_Mirafra/Proj_Zeph/zephyrproject/zpp_srg/app"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

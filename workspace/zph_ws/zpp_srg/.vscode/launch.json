@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Zephyr (Cortex-Debug: ST-Link/OpenOCD)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "openocd",
+      "cwd": "C:/Work_Mirafra/Proj_Zeph/zephyrproject/zpp_srg",
+      "executable": "C:/Work_Mirafra/Proj_Zeph/workspace/zph_ws/zpp_srg/build/zephyr/zephyr.elf",
+      "device": "STM32F446RE",
+      "gdbPath": "C:/Work_Mirafra/Proj_Zeph/workspace/sdk/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb.exe",
+      "openOcdPath": "C:/OpenOCD/bin/openocd.exe",
+      "configFiles": [
+        "interface/stlink.cfg",
+        "target/stm32f4x.cfg"
+      ],
+      "svdFile": "C:/Work_Mirafra/Proj_Zeph/zephyrproject/zephyr/boards/st/nucleo_f446re/stm32f446.svd",
+      "runToMain": true,
+      "preLaunchTask": "Zephyr: Build (west)",
+      "postRestartSessionCommands": [
+        "monitor reset halt",
+        "load",
+        "monitor reset halt"
+      ]
+    },
+    {
+      "name": "Zephyr (GDB attach: west debug)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "C:/Work_Mirafra/Proj_Zeph/workspace/zph_ws/zpp_srg/build/zephyr/zephyr.elf",
+      "cwd": "C:/Work_Mirafra/Proj_Zeph/zephyrproject/zpp_srg",
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:/Work_Mirafra/Proj_Zeph/workspace/sdk/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb.exe",
+      "externalConsole": false,
+      "setupCommands": [
+        {
+          "description": "Enable pretty printing",
+          "text": "-enable-pretty-printing"
+        }
+      ],
+      "preLaunchTask": "Zephyr: Debug server (west)"
+    }
+  ]
+}
