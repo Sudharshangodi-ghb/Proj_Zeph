@@ -17,5 +17,5 @@ STM32F446RE Nucleo Zephyr with C Programming
 |   CAN1         | MCP2551 Transceiver     |  PB8 (CAN1_RX) ,  PB9 (CAN1_TX)                      | Standard CAN interface                                     |
 
 
+<img width="592" height="457" alt="image" src="https://github.com/user-attachments/assets/5de31c7a-333e-4ff3-b54a-1d890a5c3079" />
 
-![Nucleo Pinout STM32F446re](image.png)
