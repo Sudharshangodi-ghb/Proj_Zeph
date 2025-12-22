@@ -53,3 +53,30 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Python virtual environment
+py_env/
+
+# Python virtual environment
+py_env/
+
+# Zephyr SDK
+workspace/sdk/
+
+# West workspace internals
+workspace/zph_ws/.west/
+
+# Bootloader sources
+workspace/zph_ws/bootloader/
+
+# Zephyr modules
+workspace/zph_ws/modules/
+
+# Tools directory
+workspace/zph_ws/tools/
+
+# Zephyr source tree
+workspace/zph_ws/zephyr/
+
+# Build artifacts
+workspace/zph_ws/zpp_srg/build/

@@ -1,3 +1,7 @@
+# Zephyr platform project - Sudharshan Reddy Godi
+Zephyr based project.
+
+
 .. zephyr:code-sample:: alarm
    :name: Counter Alarm
    :relevant-api: counter_interface
