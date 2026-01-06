@@ -61,7 +61,7 @@ py_env/
 py_env/
 
 # Zephyr SDK
-workspace/sdk/
+workspace/zephyr_sdk/
 
 # West workspace internals
 workspace/zph_ws/.west/

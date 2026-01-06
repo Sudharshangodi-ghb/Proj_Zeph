@@ -1,4 +1,4 @@
-REM filepath: c:\Work_Mirafra\Proj_Zeph\setup.bat
+
 winget install Kitware.CMake Ninja-build.Ninja oss-winget.gperf Python.Python.3.12 Git.Git oss-winget.dtc wget 7zip.7zip
 
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command " [System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
@@ -8,6 +8,8 @@ choco -v
 choco install vscode
 
 python -m venv py_env
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 .\py_env\Scripts\Activate.ps1
 
@@ -26,3 +28,17 @@ cd zph_ws
 west update 
 
 west zephyr-export 
+
+mkdir zephyr_sdk
+
+cd zephyr_sdk
+
+rem west sdk install
+
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.17.4/zephyr-sdk-0.17.4_windows-x86_64.7z
+
+7z x zephyr-sdk-0.17.4_windows-x86_64.7z
+
+cd zephyr-sdk-0.17.4
+
+.\setup.cmd
