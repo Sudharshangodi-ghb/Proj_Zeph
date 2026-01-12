@@ -1,118 +1,64 @@
-/*
- * Copyright (c) 2019 Linaro Limited
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 #include <zephyr/kernel.h>
-
 #include <zephyr/device.h>
-#include <zephyr/drivers/counter.h>
+#include <zephyr/drivers/gpio.h>
 #include <zephyr/sys/printk.h>
 
-#define DELAY 2000000
-#define ALARM_CHANNEL_ID 0
-#define ALARM_FLAGS 0
+#define LED_NODE    DT_ALIAS(led0)
+#define BUTTON_NODE DT_ALIAS(button0)
 
-struct counter_alarm_cfg alarm_cfg;
+class LedButtonApp {
+private:
+    const struct device *led_dev;
+    const struct device *button_dev;
+    gpio_pin_t led_pin;
+    gpio_pin_t button_pin;
 
-#if defined(CONFIG_COUNTER_TIMER_STM32)
-#define TIMER DT_INST(0, st_stm32_counter)
-#elif defined(CONFIG_COUNTER_RTC_STM32)
-#define TIMER DT_INST(0, st_stm32_rtc)
-#else
-#error Unable to find a counter device node in devicetree
-#endif
+public:
+    // Constructor: initialize devices and configure pins
+    LedButtonApp() {
+        led_dev = DEVICE_DT_GET(DT_GPIO_CTLR(LED_NODE, gpios));
+        button_dev = DEVICE_DT_GET(DT_GPIO_CTLR(BUTTON_NODE, gpios));
 
-static void test_counter_interrupt_fn(const struct device *counter_dev,
-									  uint8_t chan_id, uint32_t ticks,
-									  void *user_data)
-{
-	struct counter_alarm_cfg *config = (counter_alarm_cfg *)user_data;
-	uint32_t now_ticks;
-	uint64_t now_usec;
-	int now_sec;
-	int err;
+        led_pin = DT_GPIO_PIN(LED_NODE, gpios);
+        button_pin = DT_GPIO_PIN(BUTTON_NODE, gpios);
 
-	err = counter_get_value(counter_dev, &now_ticks);
-	if (!counter_is_counting_up(counter_dev))
-	{
-		now_ticks = counter_get_top_value(counter_dev) - now_ticks;
-	}
+        if (!device_is_ready(led_dev) || !device_is_ready(button_dev)) {
+            printk("LED or Button device not ready\n");
+            return;
+        }
 
-	if (err)
-	{
-		printk("Failed to read counter value (err %d)", err);
-		return;
-	}
+        // Configure LED pin as output
+        gpio_pin_configure(led_dev, led_pin, GPIO_OUTPUT_INACTIVE);
 
-	now_usec = counter_ticks_to_us(counter_dev, now_ticks);
-	now_sec = (int)(now_usec / USEC_PER_SEC);
+        // Configure Button pin as input
+        gpio_pin_configure(button_dev, button_pin, GPIO_INPUT);
 
-	printk("!!! Alarm !!!\n");
-	printk("Now: %u\n", now_sec);
+        printk("LedButtonApp initialized\n");
+    }
 
-	/* Set a new alarm with a double length duration */
-	config->ticks = config->ticks * 2U;
+    // Destructor: cleanup if needed
+    ~LedButtonApp() {
+        // Turn off LED before exit
+        gpio_pin_set(led_dev, led_pin, 0);
+        printk("LedButtonApp destroyed\n");
+    }
 
-	printk("Set alarm in %u sec (%u ticks)\n",
-		   (uint32_t)(counter_ticks_to_us(counter_dev,
-										  config->ticks) /
-					  USEC_PER_SEC),
-		   config->ticks);
+    // Main loop: poll button and control LED
+    void run() {
+        while (true) {
+            int val = gpio_pin_get(button_dev, button_pin);
+            if (val == 0) { // button pressed (active low)
+                gpio_pin_set(led_dev, led_pin, 1);
+            } else {
+                gpio_pin_set(led_dev, led_pin, 0);
+            }
+            k_sleep(K_MSEC(100));
+        }
+    }
+};
 
-	err = counter_set_channel_alarm(counter_dev, ALARM_CHANNEL_ID,
-									(counter_alarm_cfg *)user_data);
-	if (err != 0)
-	{
-		printk("Alarm could not be set\n");
-	}
-}
-
-int main(void)
-{
-	const struct device *const counter_dev = DEVICE_DT_GET(TIMER);
-	int err;
-
-	printk("Counter alarm sample\n\n");
-
-	if (!device_is_ready(counter_dev))
-	{
-		printk("device not ready.\n");
-		return 0;
-	}
-
-	counter_start(counter_dev);
-
-	alarm_cfg.flags = ALARM_FLAGS;
-	alarm_cfg.ticks = counter_us_to_ticks(counter_dev, DELAY);
-	alarm_cfg.callback = test_counter_interrupt_fn;
-	alarm_cfg.user_data = &alarm_cfg;
-
-	err = counter_set_channel_alarm(counter_dev, ALARM_CHANNEL_ID,
-									&alarm_cfg);
-	printk("Set alarm in %u sec (%u ticks)\n",
-		   (uint32_t)(counter_ticks_to_us(counter_dev,
-										  alarm_cfg.ticks) /
-					  USEC_PER_SEC),
-		   alarm_cfg.ticks);
-
-	if (-EINVAL == err)
-	{
-		printk("Alarm settings invalid\n");
-	}
-	else if (-ENOTSUP == err)
-	{
-		printk("Alarm setting request not supported\n");
-	}
-	else if (err != 0)
-	{
-		printk("Error\n");
-	}
-
-	while (1)
-	{
-		k_sleep(K_FOREVER);
-	}
-	return 0;
-}
+// extern "C" void main(void)
+// {
+//     LedButtonApp app;
+//     app.run();
+// }
