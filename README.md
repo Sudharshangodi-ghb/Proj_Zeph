@@ -19,3 +19,39 @@ STM32F446RE Nucleo Zephyr with C Programming
 
 <img width="592" height="457" alt="image" src="https://github.com/user-attachments/assets/5de31c7a-333e-4ff3-b54a-1d890a5c3079" />
 
+
+
+zpp_srg/
+ ├── app/
+ │   ├── src/
+ │   │   ├── main.cpp          # Entry point
+ │   │   ├── bluetooth.cpp     # HC-05 logic
+ │   │   ├── gsm.cpp           # SIM800 logic
+ │   │   ├── sensors.cpp       # LM35, MPU6050
+ │   │   ├── servo.cpp         # PWM control
+ │   │   └── canbus.cpp        # MCP2551 CAN logic
+ │   ├── include/
+ │   │   ├── bluetooth.hpp
+ │   │   ├── gsm.hpp
+ │   │   ├── sensors.hpp
+ │   │   ├── servo.hpp
+ │   │   └── canbus.hpp
+ │   ├── boards/
+ │   │   └── nucleo_f446re.overlay
+ │   └── prj.conf
+ ├── modules/                  # Reusable libraries
+ │   ├── bluetooth/
+ │   │   ├── bt_driver.cpp
+ │   │   └── bt_driver.hpp
+ │   ├── gsm/
+ │   │   ├── gsm_driver.cpp
+ │   │   └── gsm_driver.hpp
+ │   ├── sensors/
+ │   │   ├── lm35_driver.cpp
+ │   │   └── lm35_driver.hpp
+ │   └── can/
+ │       ├── can_driver.cpp
+ │       └── can_driver.hpp
+ └── CMakeLists.txt
+
+
