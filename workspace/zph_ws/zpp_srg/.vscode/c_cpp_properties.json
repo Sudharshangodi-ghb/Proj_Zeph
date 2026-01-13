@@ -1,17 +1,24 @@
-
 {
-  "version": 4,
   "configurations": [
     {
-      "name": "Zephyr (Windows)",
-      "compilerPath": "C:/Work_Mirafra/Proj_Zeph/workspace/sdk/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe",
+      "name": "Zephyr STM32F446RE",
+      "includePath": [
+        "${workspaceFolder}/app/include",
+        "${workspaceFolder}/modules/**",
+        "${workspaceFolder}/build/zephyr/include",
+        "${workspaceFolder}/../zephyr/include"
+      ],
+      "defines": [
+        "CONFIG_CPP",
+        "CONFIG_UART1",
+        "CONFIG_UART2",
+        "CONFIG_UART3"
+      ],
+      "compilerPath": "C:/Zephyr_sdk/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe",
       "cStandard": "c11",
       "cppStandard": "c++17",
-      "intelliSenseMode": "gcc-arm",
-      "compileCommands": "C:/Work_Mirafra/Proj_Zeph/workspace/zph_ws/zpp_srg/build/compile_commands.json",
-      "defines": [
-        "ZEPHYR"
-      ]
+      "intelliSenseMode": "gcc-arm"
     }
-  ]
+  ],
+  "version": 4
 }

@@ -1,36 +1,16 @@
-
 {
-  // Use Chocolatey CMake
-  "cmake.cmakePath": "C:/ProgramData/chocolatey/bin/cmake.exe",
-
-  // CMake + Ninja settings
-  "cmake.generator": "Ninja",
-  "cmake.buildDirectory": "C:/Work_Mirafra/Proj_Zeph/workspace/zph_ws/zpp_srg/build",
-  "cmake.exportCompileCommandsFile": true,
-  "cmake.configureOnOpen": false,
-  "cmake.preferredGenerators": ["Ninja"],
-
-  // Provide configuration to C/C++ extension
-  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
-
-  // Python venv for west
-  "python.defaultInterpreterPath": "C:/Work_Mirafra/Proj_Zeph/py_env/Scripts/python.exe",
-
-  // Terminal defaults
-  "terminal.integrated.defaultProfile.windows": "PowerShell",
-
-  // Environment for Zephyr builds in VS Code terminal
-  "terminal.integrated.env.windows": {
-    "ZEPHYR_TOOLCHAIN_VARIANT": "zephyr",
-    "ZEPHYR_SDK_INSTALL_DIR": "C:/Work_Mirafra/Proj_Zeph/workspace/sdk/zephyr-sdk-0.17.4",
-    "PATH": "C:/ProgramData/chocolatey/bin;${env:PATH}"
-  },
-
-  // Helpful mappings
   "files.associations": {
-    "*.overlay": "dts",
-    "*.keymap": "c",
-    "*.conf": "properties"
+    "*.c": "c",
+    "*.cpp": "cpp",
+    "*.h": "c",
+    "*.hpp": "cpp"
   },
-  "editor.formatOnSave": true
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "cmake.generator": "Ninja",
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "terminal.integrated.env.windows": {
+    "ZEPHYR_BASE": "${workspaceFolder}/../zephyr",
+    "ZEPHYR_SDK_INSTALL_DIR": "C:/Zephyr_sdk",
+    "PATH": "${env:PATH};C:/OpenOCD/openocd/bin;C:/Zephyr_sdk/arm-zephyr-eabi/bin"
+  }
 }

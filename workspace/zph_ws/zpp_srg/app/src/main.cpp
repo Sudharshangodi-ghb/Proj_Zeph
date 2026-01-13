@@ -57,8 +57,9 @@ public:
     }
 };
 
-// extern "C" void main(void)
-// {
-//     LedButtonApp app;
-//     app.run();
-// }
+extern "C" int main(void)
+{
+    LedButtonApp app;
+    app.run();
+    return 0;
+}
