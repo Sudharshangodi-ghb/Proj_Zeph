@@ -2,57 +2,18 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "West Build",
+      "label": "Build App",
       "type": "shell",
-      "command": "west",
-      "args": [
-        "build",
-        "-b",
-        "nucleo_f446re",
-        "app/"
-      ],
+      "command": "make build_app",
       "options": {
         "cwd": "${workspaceFolder}"
       },
+      "problemMatcher": [
+        "$gcc"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
-      },
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": true
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "West Flash",
-      "type": "shell",
-      "command": "west",
-      "args": [
-        "flash",
-        "--runner",
-        "stlink"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "West Clean",
-      "type": "shell",
-      "command": "west",
-      "args": [
-        "build",
-        "-t",
-        "clean"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
       }
     }
   ]

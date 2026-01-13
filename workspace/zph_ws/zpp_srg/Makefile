@@ -1,18 +1,31 @@
-BOARD = nucleo_f446re
-APP_DIR = app
-BUILD_DIR = build
+# Board and app configuration
+board_type   = nucleo_f446re
+app_dir      = app
+build_folder = build
 
-all:
-    west build -b $(BOARD) $(APP_DIR) -d $(BUILD_DIR)
+# Pristine build option
+PRISTINE ?= 0
+ifeq ($(PRISTINE),1)
+    pristine_build := --pristine=always
+else
+    pristine_build :=
+endif
 
-flash:
-    west flash -d $(BUILD_DIR) --runner stlink
+# Shell settings for Windows vs Linux
+ifeq ($(OS),Windows_NT)
+    SHELL := cmd.exe
+    .SHELLFLAGS := /C
+else
+    SHELL := /bin/bash
+    .SHELLFLAGS := -c
+endif
 
-clean:
-    west build -t clean -d $(BUILD_DIR)
+# Targets
+build_app:
+    west build $(pristine_build) -b $(board_type) $(app_dir) -d $(build_folder)
 
-rebuild:
-    west build -p always -b $(BOARD) $(APP_DIR) -d $(BUILD_DIR)
+flash_app:
+    west flash -d $(build_folder) --runner stlink
 
-debug:
-    west debug -d $(BUILD_DIR) --runner openocd
+clean_app:
+    west build -d $(build_folder) -t clean

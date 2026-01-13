@@ -5,10 +5,10 @@
       "name": "Debug STM32F446RE",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/zephyr/zephyr.elf",
-      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/zpp_srg/build/zephyr/zephyr.elf",
+      "cwd": "${workspaceFolder}/zpp_srg",
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/Zephyr_sdk/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb.exe",
+      "miDebuggerPath": "${workspaceFolder}/../Zephyr_sdk/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb.exe",
       "setupCommands": [
         { "text": "target remote localhost:3333" },
         { "text": "monitor reset halt" },

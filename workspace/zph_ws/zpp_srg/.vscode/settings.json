@@ -7,10 +7,10 @@
   },
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "cmake.generator": "Ninja",
-  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "cmake.buildDirectory": "${workspaceFolder}/zpp_srg/build",
   "terminal.integrated.env.windows": {
-    "ZEPHYR_BASE": "${workspaceFolder}/../zephyr",
-    "ZEPHYR_SDK_INSTALL_DIR": "C:/Zephyr_sdk",
-    "PATH": "${env:PATH};C:/OpenOCD/openocd/bin;C:/Zephyr_sdk/arm-zephyr-eabi/bin"
+    "ZEPHYR_BASE": "${workspaceFolder}/zephyr",
+    "ZEPHYR_SDK_INSTALL_DIR": "${workspaceFolder}/Zephyr_sdk",
+    "PATH": "${env:PATH};${workspaceFolder}/Zephyr_sdk/arm-zephyr-eabi/bin;C:/OpenOCD/openocd/bin"
   }
 }

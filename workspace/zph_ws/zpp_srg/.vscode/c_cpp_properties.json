@@ -14,7 +14,7 @@
         "CONFIG_UART2",
         "CONFIG_UART3"
       ],
-      "compilerPath": "C:/Zephyr_sdk/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe",
+      "compilerPath": "${workspaceFolder}/../Zephyr_sdk/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc.exe",
       "cStandard": "c11",
       "cppStandard": "c++17",
       "intelliSenseMode": "gcc-arm"
