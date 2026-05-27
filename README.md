@@ -26,16 +26,21 @@ STM32F446RE Nucleo Zephyr with C Programming
 
 
 
+# Project Directory Structure
+
+```text
 zpp_srg/
  ├── app/
  │   ├── src/
  │   │   ├── main.cpp          # Entry point
+ │   │   ├── audio_echo.cpp    # I2S audio stream looping logic
  │   │   ├── bluetooth.cpp     # HC-05 logic
  │   │   ├── gsm.cpp           # SIM800 logic
  │   │   ├── sensors.cpp       # LM35, MPU6050
  │   │   ├── servo.cpp         # PWM control
  │   │   └── canbus.cpp        # MCP2551 CAN logic
  │   ├── include/
+ │   │   ├── audio_echo.hpp
  │   │   ├── bluetooth.hpp
  │   │   ├── gsm.hpp
  │   │   ├── sensors.hpp
@@ -58,5 +63,6 @@ zpp_srg/
  │       ├── can_driver.cpp
  │       └── can_driver.hpp
  └── CMakeLists.txt
+```
 
 
